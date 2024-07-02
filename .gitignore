@@ -1,0 +1,19 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/dist
+
+# environment variables
+.env
+.env.test
+
+# IDE files
+.idea
+*.log
+
+# macOS files
+.DS_Store
