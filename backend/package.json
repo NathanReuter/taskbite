@@ -1,5 +1,5 @@
 {
-  "name": "task-bite",
+  "name": "task-bite-backend",
   "version": "0.0.1",
   "description": "TaskBite is a task management application that allows users to organize tasks into lists and boards, similar to Trello",
   "main": "index.js",
