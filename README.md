@@ -1,4 +1,4 @@
-# TaskBite 🍏
+# TaskBite 🍪
 
 TaskBite is a comprehensive task management application designed to help users efficiently organize their tasks into lists and boards, similar to Trello. The application is developed with modern web technologies including TypeScript, Node.js, Express, and React, with MySQL for data storage.
 

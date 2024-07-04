@@ -1,4 +1,4 @@
-# TaskBite Frontend
+# TaskBite Frontend 🍪
 
 Welcome to the TaskBite frontend repository! This project is built with React, TypeScript, and Vite, providing a modern and efficient development environment with hot module replacement (HMR) and ESLint integration.
 
