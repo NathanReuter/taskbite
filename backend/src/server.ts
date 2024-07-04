@@ -4,7 +4,6 @@ dotenv.config({
 });
 import express from 'express';
 import cors from 'cors';
-import db from './config/database';
 import authRoutes from './routes/authRoutes';
 import { checkEnv } from './config/checkEnv';
 import { logger } from './utils/logger';
@@ -12,7 +11,6 @@ import boardRoutes from './routes/boardRoutes';
 import listRoutes from './routes/listRoutes';
 import taskRoutes from './routes/taskRoutes';
 import { authenticateToken } from './middleware/authMiddleware';
-import { node } from 'globals';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
