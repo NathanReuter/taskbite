@@ -4,8 +4,37 @@ import Input from '@tailus-ui/Input';
 import Label from '@tailus-ui/Label';
 import Card from '@tailus-ui/Card';
 import BrandLogo from "../components/BrandLogo.tsx";
+import {useState} from "react";
+import {signUp} from "../services/api.ts";
+import {useNavigate} from "react-router-dom";
 
 export function Signup() {
+    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    async function handleSignup(event: { preventDefault: () => void; }) {
+        try {
+            event.preventDefault();
+            const response = await signUp({
+                email,
+                name: `${firstName} ${lastName}`,
+                password
+            })
+
+            if (response.status === 201) {
+                navigate('/dashboard');
+            } else {
+                alert('An error occurred while signing up')
+            }
+        } catch (e) {
+            console.error(e)
+            alert('An error occurred while signing up')
+        }
+    }
+
     return (
         <main className="z-10 m-auto max-w-lg px-6 py-6 sm:py-12 md:py-20 lg:absolute lg:inset-0 lg:m-auto lg:grid lg:max-w-5xl lg:grid-cols-2 lg:gap-16 lg:px-12 xl:gap-32 xl:px-0">
             <div className="py-6">
@@ -76,7 +105,7 @@ export function Signup() {
                         </Text>
                     </div>
 
-                    <form className="mx-auto mt-8 space-y-6">
+                    <form onSubmit={event => handleSignup(event)} className="mx-auto mt-8 space-y-6">
                         <div className="space-y-6 rounded-[--btn-radius] shadow-sm shadow-gray-500/5">
                             <div className="space-y-6">
                                 <div className="grid gap-4 sm:grid-cols-2 sm:gap-3">
@@ -84,14 +113,20 @@ export function Signup() {
                                         <Label size="sm" htmlFor="firstname">
                                             First Name
                                         </Label>
-                                        <Input id="firstname" name="firstname" type="text" required variant="outlined" size="md" />
+                                        <Input
+                                            value={firstName}
+                                            onChange={e => setFirstName(e.target.value)}
+                                            id="firstname" name="firstname" type="text" required variant="outlined" size="md" />
                                     </div>
 
                                     <div className="space-y-2.5">
                                         <Label size="sm" htmlFor="lastname">
                                             Last Name
                                         </Label>
-                                        <Input id="lastname" name="lastname" type="text" required variant="outlined" size="md" />
+                                        <Input
+                                            value={lastName}
+                                            onChange={e => setLastName(e.target.value)}
+                                            id="lastname" name="lastname" type="text" required variant="outlined" size="md" />
                                     </div>
                                 </div>
 
@@ -99,14 +134,20 @@ export function Signup() {
                                     <Label size="sm" htmlFor="email">
                                         Email
                                     </Label>
-                                    <Input id="email" name="email" type="email" required variant="outlined" size="md" />
+                                    <Input
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
+                                        id="email" name="email" type="email" required variant="outlined" size="md" />
                                 </div>
 
                                 <div className="space-y-2.5">
                                     <Label size="sm" htmlFor="password">
                                         Password
                                     </Label>
-                                    <Input id="password" name="password" type="password" required variant="outlined" size="md" />
+                                    <Input
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                        id="password" name="password" type="password" required variant="outlined" size="md" />
                                 </div>
                             </div>
                         </div>
@@ -120,7 +161,7 @@ export function Signup() {
                 <Card variant="soft" data-shade="925" className="rounded-[calc(var(--card-radius)-0.25rem)] dark:bg-[--ui-bg]">
                     <Caption className="my-0" size="sm" align="center">
                         Already have an account? {''}
-                        <Link intent="neutral" size="sm" variant="underlined" href="">
+                        <Link href="/login" intent="neutral" size="sm" variant="underlined">
                             Login
                         </Link>
                     </Caption>

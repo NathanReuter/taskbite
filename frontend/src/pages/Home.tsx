@@ -26,7 +26,7 @@ export function Home() {
                             Organize your tasks, lists, and boards in one place with <b>TaskBite</b>. Boost your productivity and keep track of your projects effortlessly.
                         </Text>
                         <div className="mx-auto w-fit rounded-[calc(var(--btn-radius)+4px)] border border-gray-950/5 p-1 dark:border-white/5 dark:bg-white/5 dark:shadow-lg dark:shadow-white/5">
-                            <Button.Root href="/examples/forms/register3">
+                            <Button.Root href="/signup">
                                 <Button.Label>Get Started</Button.Label>
                             </Button.Root>
                         </div>

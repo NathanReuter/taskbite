@@ -1,5 +1,7 @@
+import {Header} from "../../components/header.tsx";
+
 export function Dashboard () {
     return (
-        <h1>Dashboard</h1>
+        <Header/>
     )
 }

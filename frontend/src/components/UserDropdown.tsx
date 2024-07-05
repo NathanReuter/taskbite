@@ -3,7 +3,6 @@ import Button from '@tailus-ui/Button';
 import { Check, ChevronRight, HelpCircle, LogOut, MessageCircleQuestion, Settings, Settings2, User, UserPlus } from 'lucide-react';
 import { Caption, Title } from '@tailus-ui/typography';
 import { AdminAvatar } from './AdminAvatar';
-import { TAILUS_AVATAR } from './../const';
 
 export const UserDropdown = () => {
   return (
@@ -48,13 +47,6 @@ export const UserDropdown = () => {
           </div>
           <DropdownMenu.Separator />
           <DropdownMenu.Sub>
-            <DropdownMenu.SubTrigger>
-              <DropdownMenu.Icon>
-                <User />
-              </DropdownMenu.Icon>
-              Switch Account
-              <DropdownMenu.RightIcon className="ml-auto" children={<ChevronRight className="size-4" />} />
-            </DropdownMenu.SubTrigger>
             <DropdownMenu.Portal>
               <DropdownMenu.SubContent data-shade="900" mixed className="z-[51] min-w-[18rem] dark:[--caption-text-color:theme(colors.gray.400)]">
                 <div className="p-3">
@@ -78,7 +70,7 @@ export const UserDropdown = () => {
                 </DropdownMenu.Item>
                 <DropdownMenu.Item className="h-fit py-2">
                   <div className="grid gap-3 [grid-template-columns:auto_1fr]">
-                    <AdminAvatar src={TAILUS_AVATAR} />
+                    <AdminAvatar />
                     <div>
                       <Title className="text-sm" as="span" weight="medium">
                         Tailus UI
