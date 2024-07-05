@@ -21,7 +21,7 @@ describe('Auth Controller', () => {
       const response = await request(app)
         .post('/api/v1/auth/signup')
         .send(otherUser)
-        .expect(200);
+        .expect(201);
 
       expect(response.body).toHaveProperty('token');
     });

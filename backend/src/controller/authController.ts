@@ -54,7 +54,7 @@ export async function signup(
       },
     );
 
-    res.status(200).json({
+    res.status(201).json({
       token,
     });
   } catch (error) {
