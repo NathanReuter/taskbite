@@ -22,9 +22,11 @@ export const signUp = async (newUserCredentials: {
     email: string;
     password: string;
     name: string;
-}) => api.post('/auth/signup', newUserCredentials)
+}) => api.post('/auth/signup', newUserCredentials);
 
 export const login = async (credentials: {
     email: string;
     password: string;
 }) => api.post('/auth/login', credentials);
+
+export const fetchUser = async () => api.get('/auth/me')
