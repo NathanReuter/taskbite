@@ -4,6 +4,7 @@ import {
   findUserByEmail,
   NewUserPayload,
   removeUser,
+  User,
 } from '../models/User';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -12,6 +13,7 @@ import { config } from '../config/config';
 interface TypedRequest<TParams, TBody> extends Request<TParams> {
   body: TBody | never;
   params: TParams | never;
+  user?: Partial<User>;
 }
 
 interface LoginCredential {
@@ -98,12 +100,38 @@ export async function login(
     token,
   });
 }
+
+export async function me(
+  req: TypedRequest<NonNullable<unknown>, never>,
+  res: Response,
+) {
+  const email = req?.user?.email;
+  if (!email) {
+    return res.status(400).json({
+      message: 'Missing email',
+    });
+  }
+  const user = await findUserByEmail(email);
+
+  if (!user) {
+    return res.status(404).json({
+      message: 'User not found',
+    });
+  }
+
+  const { password, name, ...rest } = user;
+
+  res.status(200).json({
+    ...rest,
+    firstName: user.name.split(' ')[0],
+    lastName: user.name.split(' ')[1],
+  });
+}
+
 export async function deleteUser(
   req: TypedRequest<NonNullable<unknown>, never>,
   res: Response,
 ) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   const email = req?.user?.email;
   if (!email) {
     return res.status(400).json({

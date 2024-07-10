@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config/config';
 
-interface AuthenticatedRequest<T> extends Request {
+export interface AuthenticatedRequest<T> extends Request {
   user?: T;
 }
 
