@@ -1,14 +1,23 @@
 import DropdownMenu from '@tailus-ui/Dropdown';
 import Button from '@tailus-ui/Button';
-import { Check, ChevronRight, HelpCircle, LogOut, MessageCircleQuestion, Settings, Settings2, User, UserPlus } from 'lucide-react';
+import { Check, HelpCircle, LogOut, MessageCircleQuestion, Settings, Settings2, UserPlus } from 'lucide-react';
 import { Caption, Title } from '@tailus-ui/typography';
 import { AdminAvatar } from './AdminAvatar';
+import {logout, UserState} from "../store/userSlice.ts";
+import {useAppDispatch} from "../hooks.ts";
+import {useNavigate} from "react-router-dom";
 
-export const UserDropdown = () => {
+export const UserDropdown: React.FC<{user: UserState}> = ({user}) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  function handleLogout() {
+    dispatch(logout());
+    navigate('/');
+  }
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger className="rounded-[--avatar-radius] hover:ring ring-[--ui-soft-bg] data-[state=open]:ring">
-        <AdminAvatar />
+        <AdminAvatar/>
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content
@@ -25,9 +34,9 @@ export const UserDropdown = () => {
             <AdminAvatar />
             <div>
               <Title className="text-sm" as="span" weight="medium">
-                Méschac Irung
+                { user.firstName } { user.lastName }
               </Title>
-              <Caption>hello@tailus.io</Caption>
+              <Caption>{user.email}</Caption>
 
               <div className="mt-4 grid grid-cols-2 gap-3" data-rounded="large">
                 <Button.Root className="bg-gray-50" variant="outlined" size="xs" intent="gray">
@@ -36,11 +45,11 @@ export const UserDropdown = () => {
                   </Button.Icon>
                   <Button.Label>Manage</Button.Label>
                 </Button.Root>
-                <Button.Root className="bg-gray-50" variant="outlined" size="xs" intent="gray">
+                <Button.Root onClick={() => handleLogout()} className="bg-gray-50" variant="outlined" size="xs" intent="gray">
                   <Button.Icon size="xs" type="leading">
                     <LogOut />
                   </Button.Icon>
-                  <Button.Label>Sign Out</Button.Label>
+                  <Button.Label>Logout Out</Button.Label>
                 </Button.Root>
               </div>
             </div>
