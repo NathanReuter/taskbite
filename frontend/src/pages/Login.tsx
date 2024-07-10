@@ -5,30 +5,22 @@ import Input from '@tailus-ui/Input';
 import Label from '@tailus-ui/Label';
 import BrandLogo from "../components/BrandLogo.tsx";
 import {useState} from "react";
-import {login} from "../services/api.ts";
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../hooks.ts";
+import {loginReducer} from "../store/userSlice.ts";
 
 export function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const dispatch = useAppDispatch();
     async function handleLogin(event: { preventDefault: () => void; }) {
         event.preventDefault();
-        try {
-            const res = await login({
-                email,
-                password
-            });
-
-            if (res.status === 200) {
-                navigate('/dashboard');
-            } else {
-                alert('Login failed');
-            }
-        } catch (e) {
-            console.error(e);
-            alert('Login failed');
+        const result = await dispatch(loginReducer({email, password}))
+        if (loginReducer.fulfilled.match(result)) {
+            navigate('/dashboard')
+        } else {
+            alert(result.payload || 'Login Failed')
         }
     }
 
@@ -84,7 +76,7 @@ export function Login() {
                 <Card variant="soft" data-shade="925" className="rounded-[calc(var(--card-radius)-0.25rem)] dark:bg-gray-925">
                     <Caption className="my-0" size="sm" align="center">
                         Don't have an account ?{' '}
-                        <Link intent="neutral" size="sm" variant="underlined" href="/examples/forms/register1">
+                        <Link intent="neutral" size="sm" variant="underlined" href="/signup">
                             Create account
                         </Link>
                     </Caption>
