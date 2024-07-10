@@ -3,8 +3,8 @@ import BrandLogo from "./BrandLogo.tsx";
 import {UserDropdown} from "./UserDropdown.tsx";
 import Button from '@tailus-ui/Button';
 import { twMerge } from 'tailwind-merge';
-import Input from "@tailus-ui/Input.tsx";
 import {Search} from "./Search.tsx";
+import {useAppSelector} from "../hooks.ts";
 
 export const Link = ({ link, label, isActive = false, mainNav = true }: { link: string; label: string; isActive?: boolean; mainNav?: boolean }) => (
     <Button.Root
@@ -21,6 +21,7 @@ export const Link = ({ link, label, isActive = false, mainNav = true }: { link: 
 );
 
 export function Header() {
+    const userSelect = useAppSelector(state => state.user);
     return (
         <header className="feedback-bg fixed top-0 z-10 w-full border-b">
             <div className="mx-auto max-w-6xl px-5">
@@ -34,7 +35,7 @@ export function Header() {
                     <div className="flex items-center gap-4">
                         <Link link="#" label="Help" mainNav={false}/>
                         <div className="size-6 hidden sm:block">
-                            <UserDropdown/>
+                            <UserDropdown user={userSelect}/>
                         </div>
                     </div>
                 </div>
